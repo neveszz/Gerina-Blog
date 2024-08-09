@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Gerina Blog
+{% endblock title %}
+
+{% block content %}
+    <br>
+    <ul>
+    
+    {% if category_list %}        
+        <h1>{{ cats }}</h1>
+        {% for post in category_list %}
+            <li>
+                <a href="{% url 'article_details' post.pk %}">{{ post.title }}</a> ({{ post.author.first_name }} {{post.author.last_name }}) 
+                {% if user.is_authenticated %}      
+                    <small>
+                    - <a href="{% url 'category' post.category %}">{{post.category}}</a>
+                    {% if user.id == post.author.pk %}   
+                        -   <a href="{% url 'edit_post' post.pk %}">(edit)</a> |
+                        <a href="{% url 'delete_post' post.pk %}">(delete)</a>
+                    {% endif %}
+                    </small>
+                {% endif %}
+                <br>
+                {{ post.description }} <br>
+                <small>{{ post.post_date }}</small>
+            </li>
+            <br>
+        {% endfor %} 
+    {% else %}
+    <h1>No posts for {{cats}}</h1>
+    {% endif %}
+    </ul>
+{% endblock content %}

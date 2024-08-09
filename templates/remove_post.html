@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}
+Delete {{ post.title }}
+{% endblock title %}
+
+{% block content %}
+
+{% if user.is_authenticated %}   
+    {% if user.id == post.author.pk %}   
+        <h1>Are you sure you want to delete {{ post.title }}?</h1>
+        <form action="" method="post" class="d-inline">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+        <button class="btn btn-secondary"><a href="{% url 'home' %}">Back</a></button>
+    {% else %}
+            <h1>This post doesn't belong to you.</h1>
+            <button class="btn btn-secondary"><a href="{% url 'home' %}">Back</a></button>
+    {% endif %}
+
+{% else %}
+    <p>You need to be logged in to add a category.</p>
+    <button class="btn btn-secondary"><a href="{% url 'login' %}">Login</a></button>
+    <button class="btn btn-secondary"><a href="{% url 'home' %}">Back</a></button>
+{% endif %}   
+{% endblock content %}
+    
+    

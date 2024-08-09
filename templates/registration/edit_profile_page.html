@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %} Edit Profile page {% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+    <br>
+    {% if user.id == profile.user.id %}
+        <div class="form-group">
+            <table>
+                <h1>Edit profile page</h1>
+                <form action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_table }}
+            </table>
+            <button type="submit" class=" btn btn-secondary">Update Profile Page</button>
+        </div>
+    {% endif %}
+{% else %}
+    <h1>This isn't your profile to update. </h1>
+    <button class="btn btn-secondary"><a href="{% url 'home' %}">Back</a></button>
+{% endif %}
+{% endblock content %}
+    

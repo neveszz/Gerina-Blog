@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Edit {{ post.title }}
+{% endblock title %}
+
+{% block content %}
+{% if user.is_authenticated %}
+    {% if user.id == post.author.pk %}   
+        <h1>Update {{ post.title }}</h1>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.media }}
+            <label for="title">Title</label>    
+            <input type="text" name="title" class="form-control" id="title" value="{{ post.title }}">
+
+            <label for="title_tag">Title Tag</label>
+            <input type="text" name="title_tag" class="form-control" id="title_tag" value="{{ post.title_tag }}">
+
+            <label for="description">description</label>
+            <textarea name="description" class="form-control" id="description" rows="3">{{ post.description }}</textarea>
+
+            <label for="body">Body</label>
+            <textarea name="body" class="form-control" id="body" rows="5">{{ post.body }}</textarea>
+            <br>
+            <button type="submit" class="btn btn-secondary">Update</button>
+        </form>
+        <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+        <script>
+            CKEDITOR.replace('body');
+        </script>
+    {% else %}
+        <h1>This post doesn't belong to you.</h1>
+        <button class="btn btn-secondary"><a href="{% url 'home' %}">Back</a></button>
+    {% endif %}
+{% else %}
+    <p>You need to be logged in to add a category.</p>
+    <button class="btn btn-secondary"><a href="{% url 'login' %}">Login</a></button>
+    <button class="btn btn-secondary"><a href="{% url 'home' %}">Back</a></button>
+{% endif %}   
+{% endblock content %}

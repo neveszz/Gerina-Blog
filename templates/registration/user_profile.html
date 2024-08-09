@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+{{ page_user.user.first_name }} {{ page_user.user.last_name }} 
+{% endblock title %}
+
+{% block content %}
+<h1>
+    {{ page_user.user.first_name }} {{ page_user.user.last_name }} Profile
+</h1>
+<div class="card text-bg-secondary mb-3" style="max-width: 750px;">
+    <div class="row g-0">
+        <div class="col-md-3 text-bg-dark d-flex justify-content-center align-items-center">
+            {% if page_user.user.profile.profile_pic %}
+                <img src="{{ page_user.user.profile.profile_pic.url }}" alt="" width="180" height="180" class="rounded-circle">
+            {% else %}
+                <img src="{% static 'blogapp/images/default.jpg' %}" alt="" width="180" height="180" class="rounded-circle">
+            {% endif %}
+        </div>
+        <div class="col-md-9">
+            <div class="card-body">
+                <h5 class="card-title">
+                    {{ page_user.user.first_name }} {{ page_user.user.last_name }}
+                </h5>
+                <p class="card-text">{{ page_user.user.profile.bio }}</p>
+                
+                <div class="d-flex flex-row">
+                    {% if page_user.user.profile.instagram_url %}
+                        <p class="card-text me-3"><small class="text-body-secondary">
+                            <a href="{{ page_user.user.profile.instagram_url }}" class="btn btn-outline-warning btn-sm">Instagram</a>
+                        </small></p>
+                    {% endif %}
+                    {% if page_user.user.profile.website_url %}
+                        <p class="card-text me-3"><small class="text-body-secondary">
+                            <a href="{{ page_user.user.profile.website_url }}" class="btn btn-outline-warning btn-sm">GitHub</a>
+                        </small></p>
+                    {% endif %}
+                    {% if page_user.user.profile.linkedin_url %}
+                        <p class="card-text"><small class="text-body-secondary">
+                            <a href="{{ page_user.user.profile.linkedin_url }}" class="btn btn-outline-warning btn-sm">LinkedIn</a>
+                        </small></p>
+                    {% endif %}                        
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if user_posts %}
+<h1>Posts de {{ user.first_name }} {{ user.last_name }}</h1>
+<hr>
+
+    <ul>
+        {% for post in user_posts %}
+        <li>
+            <a href="{% url 'article_details' post.pk %}">{{ post.title }}</a>
+            <span class="mx-2">|</span>
+            <a href="{% url 'profile_page' post.author.id %}">{{ post.author.first_name }} {{ post.author.last_name }}</a>
+
+            {% if user.is_authenticated %}      
+            <small>
+                - <a href="{% url 'category' post.category %}">{{post.category|title}}</a>
+                {% if user.id == post.author.pk %}   
+                    -   <a href="{% url 'edit_post' post.pk %}">(edit)</a> |
+                    <a href="{% url 'delete_post' post.pk %}">(delete)</a>
+                {% endif %}
+            </small>
+            {% endif %}
+            <br>
+            {{ post.description }}
+            <br>
+            <small>{{ post.post_date }}</small>
+        </li>
+        <br>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No posts available.</p>
+{% endif %}
+
+{% endblock content %}

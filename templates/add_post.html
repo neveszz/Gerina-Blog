@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %} Add a blog post {% endblock %}
+
+{% block content %}
+<br>
+    <div class="form-group">
+        <table>
+            <h1>Add a blog post</h1>
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.media }}
+                {{ form.as_table }}
+            </table>
+            <button type="submit" class=" btn btn-secondary">Add</button>
+    </div>
+{% endblock content %}
+    

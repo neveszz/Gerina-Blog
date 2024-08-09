@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Add a category
+{% endblock title %}
+    
+
+{% block content %}
+<h1>Add a blog category</h1>
+{%  if user.is_authenticated %}
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add</button>
+    </form>
+{% else %}
+    <p>You need to be logged in to add a category.</p>
+    <button class="btn btn-secondary"><a href="{% url 'login' %}">Login</a></button>
+    <button class="btn btn-secondary"><a href="{% url 'home' %}">Back</a></button>
+    {% endif %}    
+{% endblock content %}
+    
