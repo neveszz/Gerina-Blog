@@ -1,7 +1,7 @@
 # Gerina Blog
 
-**Gerina Blog** é uma aplicação de blog desenvolvida com Django, ideal para compartilhar postagens sobre uma ampla gama de tópicos, como tecnologia, esportes, viagens e muito mais. Este projeto foi criado para demonstrar habilidades em desenvolvimento web com Django e é uma parte do meu portfólio.
-Neste vídeo, disponível abaixo, você poderá conhecer os detalhes do projeto:
+**Gerina Blog** é uma aplicação de blog desenvolvida com Django, ideal para compartilhar postagens sobre uma ampla gama de tópicos, como tecnologia, esportes, viagens e muito mais. Este projeto foi criado para demonstrar habilidades em desenvolvimento web com Django e é uma parte do meu portfólio. <br/>
+Neste vídeo, disponível abaixo, você poderá conhecer os detalhes do projeto:  <br/> <br/>
 https://www.youtube.com/watch?v=45WmCZEbQEI
 
 ## Funcionalidades
